@@ -1,0 +1,19 @@
+# --- Credenciales críticas (NUNCA SUBIR) ---
+/.env
+/.env.*
+!/.env.example
+/auth.json
+
+# --- Librerías externas ---
+/vendor/
+/node_modules/
+
+# --- Claves y caché volátil ---
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+
+# --- Enlace simbólico de archivos públicos ---
+/public/storage
