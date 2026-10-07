@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AcuerdoConcejoController;
 use App\Http\Controllers\Api\ResolucionAlcaldiaController; 
 use App\Http\Controllers\Api\ResolucionGerenciaController;
 use App\Http\Controllers\Api\GestionController;
+use App\Http\Controllers\Api\InstrumentoGestionController;
 
 use App\Http\Controllers\Api\DecretoController;
 
@@ -40,6 +41,9 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('/decretos/{id}', [DecretoController::class, 'show']);
 
     Route::get('/gestion', [GestionController::class, 'show']);
+
+    Route::get('/instrumentos-gestion', [InstrumentoGestionController::class, 'index']);
+    Route::get('/instrumentos-gestion/{id}', [InstrumentoGestionController::class, 'show']);
 
 
 
