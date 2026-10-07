@@ -1,4 +1,9 @@
 <x-filament-panels::page>
+    {{-- Librería QR inyectada mediante assets de Filament --}}
+    @assets
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    @endassets
+
     <style>
         .fe {
             --fe-bg: #ffffff; --fe-bg2: #f6f7f9; --fe-bg3: #eceef2;
@@ -87,15 +92,19 @@
         .fe-table .r { text-align: right; }
         .fe-dl { color: var(--fe-mut); display: inline-flex; padding: 4px; border-radius: 4px; }
         .fe-dl:hover { background: var(--fe-bg3); color: var(--fe-tx); }
+        .fe-qr-btn { color: #6366f1; display: inline-flex; padding: 4px; border-radius: 4px; cursor: pointer; border: 0; background: transparent; }
+        .fe-qr-btn:hover { background: rgba(99, 102, 241, 0.15); color: #4f46e5; }
 
         /* Cuadrícula */
         .fe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; padding: 12px; }
-        .fe-tile { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 4px; border: 1px solid transparent; border-radius: 6px; cursor: default; }
+        .fe-tile { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 4px; border: 1px solid transparent; border-radius: 6px; cursor: default; }
         .fe-tile:hover { background: var(--fe-hov); }
         .fe-tile.sel { background: var(--fe-sel); border-color: var(--fe-selbd); }
         .fe-tile .ic { height: 48px; display: flex; align-items: center; justify-content: center; }
         .fe-tile .ic img { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }
         .fe-tile .tn { margin-top: 4px; width: 100%; font-size: 12px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word; }
+        .fe-tile .grid-actions { position: absolute; top: 4px; right: 4px; display: none; gap: 2px; background: var(--fe-bg); border: 1px solid var(--fe-bd); border-radius: 4px; padding: 2px; box-shadow: 0 2px 5px rgba(0,0,0,.1); z-index: 5; }
+        .fe-tile:hover .grid-actions { display: flex; }
 
         .fe-empty { height: 100%; min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--fe-mut); }
         .fe-status { display: flex; align-items: center; gap: 14px; padding: 5px 12px; background: var(--fe-bg2); border-top: 1px solid var(--fe-bd); font-size: 12px; color: var(--fe-mut); }
@@ -103,6 +112,10 @@
         .fe-pop { position: absolute; top: calc(100% + 4px); left: 0; z-index: 30; width: 260px; padding: 10px; background: var(--fe-bg); border: 1px solid var(--fe-bd); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
         .fe-pop input { flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid var(--fe-bd); border-radius: 5px; background: var(--fe-bg); color: var(--fe-tx); user-select: text; }
         .fe-pop .go { padding: 5px 12px; border: 0; border-radius: 5px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
+
+        /* Modal QR */
+        .fe-modal-overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); padding: 16px; }
+        .fe-modal { width: 100%; max-width: 380px; background: var(--fe-bg); border: 1px solid var(--fe-bd); border-radius: 12px; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,.25); text-align: center; color: var(--fe-tx); }
 
         @media (max-width: 760px) { .fe-tree { width: 190px; } .fe-search { width: 140px; } .fe-table .hide-sm { display: none; } }
     </style>
@@ -118,6 +131,41 @@
     <div class="fe"
          x-data="{
             up: false, pct: 0, err: '', name: '',
+            qrOpen: false, qrUrl: '', qrFileName: '', copied: false,
+            showQr(url, name) {
+                this.qrUrl = url;
+                this.qrFileName = name;
+                this.qrOpen = true;
+                this.copied = false;
+                this.$nextTick(() => {
+                    const c = document.getElementById('fe-qr-target');
+                    if (c) {
+                        c.innerHTML = '';
+                        new QRCode(c, {
+                            text: url,
+                            width: 190,
+                            height: 190,
+                            colorDark: '#1e293b',
+                            colorLight: '#ffffff',
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                    }
+                });
+            },
+            copyLink() {
+                navigator.clipboard.writeText(this.qrUrl);
+                this.copied = true;
+                setTimeout(() => this.copied = false, 2500);
+            },
+            downloadQr() {
+                const img = document.querySelector('#fe-qr-target img');
+                if (img) {
+                    const a = document.createElement('a');
+                    a.href = img.src;
+                    a.download = 'QR-' + this.qrFileName + '.png';
+                    a.click();
+                }
+            },
             send(prop, input, multiple, done) {
                 const files = [...input.files];
                 if (!files.length) return;
@@ -129,7 +177,8 @@
                 if (multiple) { this.$wire.uploadMultiple(prop, files, ok, bad, prog); }
                 else { this.$wire.upload(prop, files[0], ok, bad, prog); }
             }
-         }">
+         }"
+         @keydown.escape.window="qrOpen = false">
 
         {{-- 1. CINTA DE OPCIONES --}}
         <div class="fe-bar">
@@ -185,7 +234,7 @@
             </div>
         </div>
 
-        {{-- PROGRESO: subida (con porcentaje real) --}}
+        {{-- PROGRESO: subida --}}
         <div class="fe-prog" x-show="up" x-cloak>
             <div class="fe-prog-top">
                 <span>Subiendo <strong x-text="name"></strong>…</span>
@@ -194,7 +243,7 @@
             <div class="fe-track"><div class="fe-fill" :style="'width:' + pct + '%'"></div></div>
         </div>
 
-        {{-- PROGRESO: el servidor guarda/descomprime --}}
+        {{-- PROGRESO: servidor --}}
         <div class="fe-prog" wire:loading.flex wire:target="uploadDocuments,extractZip" style="flex-direction: column;">
             <div class="fe-prog-top"><span>Guardando en el servidor…</span></div>
             <div class="fe-track"><div class="fe-fill fe-indet"></div></div>
@@ -291,7 +340,7 @@
                                 <th class="hide-sm" wire:click.stop="sortList('modified')">Fecha de modificación {{ $sortBy === 'modified' ? $arrow : '' }}</th>
                                 <th class="hide-sm" style="cursor: default;">Tipo</th>
                                 <th class="r" wire:click.stop="sortList('size')">Tamaño {{ $sortBy === 'size' ? $arrow : '' }}</th>
-                                <th style="width: 40px; cursor: default;"></th>
+                                <th style="width: 65px; text-align: right; cursor: default;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -329,7 +378,13 @@
                                     <td class="hide-sm">{{ $file['last_modified'] }}</td>
                                     <td class="hide-sm">{{ $file['type'] }}</td>
                                     <td class="r">{{ $file['size'] }}</td>
-                                    <td class="r">
+                                    <td class="r" style="display: flex; align-items: center; justify-content: flex-end; gap: 3px; height: 32px;">
+                                        {{-- Botón Enlace / QR --}}
+                                        <button type="button" class="fe-qr-btn" title="Enlace público y Código QR"
+                                                x-on:click.stop="showQr({{ Js::from($file['url']) }}, {{ Js::from($file['name']) }})">
+                                            <x-filament::icon icon="heroicon-o-qr-code" class="i16" />
+                                        </button>
+                                        {{-- Botón Descargar --}}
                                         <a href="{{ $file['url'] }}" target="_blank" download class="fe-dl" title="Descargar" wire:click.stop>
                                             <x-filament::icon icon="heroicon-o-arrow-down-tray" class="i14" />
                                         </a>
@@ -355,6 +410,18 @@
                             <div class="fe-tile {{ $selected === $file['path'] ? 'sel' : '' }}" wire:key="gf-{{ md5($file['path']) }}"
                                  wire:click.stop="selectItem({{ Js::from($file['path']) }})"
                                  x-on:dblclick="window.open({{ Js::from($file['url']) }}, '_blank')" title="{{ $file['name'] }}">
+                                
+                                {{-- Acciones sobre el mosaico --}}
+                                <div class="grid-actions">
+                                    <button type="button" class="fe-qr-btn" title="Código QR"
+                                            x-on:click.stop="showQr({{ Js::from($file['url']) }}, {{ Js::from($file['name']) }})">
+                                        <x-filament::icon icon="heroicon-o-qr-code" class="i14" />
+                                    </button>
+                                    <a href="{{ $file['url'] }}" target="_blank" download class="fe-dl" title="Descargar" wire:click.stop>
+                                        <x-filament::icon icon="heroicon-o-arrow-down-tray" class="i14" />
+                                    </a>
+                                </div>
+
                                 <div class="ic">
                                     @if ($file['is_image'])
                                         <img src="{{ $file['url'] }}" alt="" />
@@ -380,5 +447,44 @@
             <span class="fe-spacer"></span>
             <span>Tamaño de archivos aquí: <strong style="color: var(--fe-tx);">{{ $this->stats['total_size'] }}</strong></span>
         </div>
+
+        {{-- 5. MODAL DE CÓDIGO QR Y ENLACE DIRECTO --}}
+        <div class="fe-modal-overlay" x-show="qrOpen" x-cloak x-transition.opacity>
+            <div class="fe-modal" @click.outside="qrOpen = false">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--fe-bd); padding-bottom: 10px; margin-bottom: 14px;">
+                    <div style="text-align: left; overflow: hidden; padding-right: 8px;">
+                        <div style="font-weight: 700; font-size: 13px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" x-text="qrFileName"></div>
+                        <div style="font-size: 11px; color: var(--fe-mut);">Código QR y enlace directo</div>
+                    </div>
+                    <button type="button" @click="qrOpen = false" class="fe-crumb" style="font-size: 14px; font-weight: bold;">✕</button>
+                </div>
+
+                {{-- Contenedor del código QR renderizado con fondo blanco para escaneo perfecto --}}
+                <div style="display: flex; justify-content: center; padding: 12px; background: #ffffff; border-radius: 8px; border: 1px solid var(--fe-bd); width: fit-content; margin: 0 auto 14px auto;">
+                    <div id="fe-qr-target" style="width: 190px; height: 190px; display: flex; align-items: center; justify-content: center;"></div>
+                </div>
+
+                {{-- Campo con la URL directa y botón copiar --}}
+                <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+                    <input type="text" :value="qrUrl" readonly select-all
+                           style="flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid var(--fe-bd); border-radius: 6px; background: var(--fe-bg2); color: var(--fe-tx); font-size: 11.5px; user-select: text;" />
+                    <button type="button" class="fe-btn" style="background: #2563eb; color: #fff; font-weight: 600; padding: 5px 10px;" @click="copyLink()">
+                        <span x-show="!copied">Copiar</span>
+                        <span x-show="copied" style="color: #a7f3d0;">¡Listo!</span>
+                    </button>
+                </div>
+
+                {{-- Acciones del pie --}}
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="fe-btn" style="flex: 1; justify-content: center; background: var(--fe-bg2); border: 1px solid var(--fe-bd);" @click="downloadQr()">
+                        Descargar QR
+                    </button>
+                    <a :href="qrUrl" target="_blank" class="fe-btn" style="flex: 1; justify-content: center; background: #059669; color: #fff; text-decoration: none;">
+                        Abrir archivo
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </x-filament-panels::page>
