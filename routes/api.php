@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\ResolucionAlcaldiaController;
 use App\Http\Controllers\Api\ResolucionGerenciaController;
 use App\Http\Controllers\Api\GestionController;
 use App\Http\Controllers\Api\InstrumentoGestionController;
-
+use App\Http\Controllers\Api\DocInteresController;
 use App\Http\Controllers\Api\DecretoController;
 
 use App\Http\Controllers\Api\ConvocatoriaCASController;
@@ -44,7 +44,8 @@ Route::middleware('throttle:60,1')->group(function () {
 
     Route::get('/instrumentos-gestion', [InstrumentoGestionController::class, 'index']);
     Route::get('/instrumentos-gestion/{id}', [InstrumentoGestionController::class, 'show']);
-
+    Route::get('/documentos-interes', [DocInteresController::class, 'index']);
+    Route::get('/documentos-interes/{id}', [DocInteresController::class, 'show']);
 
 
     
