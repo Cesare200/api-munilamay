@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\DecretoController;
 use App\Http\Controllers\Api\ProcesoSeleccionController;
 use App\Http\Controllers\Api\ConvocatoriaCASController;
 use App\Http\Controllers\Api\DirectivaController; // <-- 1. IMPORTAR ARRIBA
+use App\Http\Controllers\Api\InteraccionMercadoController;
 
 
 // GRUPO PRIVADO / PROTEGIDO (Solo para el administrador logueado)
@@ -49,5 +50,7 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('/procesos-seleccion', [ProcesoSeleccionController::class, 'index']);
 
 
-    
+
+    Route::get('/interaccion-mercado', [InteraccionMercadoController::class, 'index']);
+    Route::get('/interaccion-mercado/{id}', [InteraccionMercadoController::class, 'show']);
 });
