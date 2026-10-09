@@ -18,11 +18,14 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-// IMPORTAMOS EL RECURSO DE RESOLUCIONES MANUALMENTE
+// Recursos manuales registrados
 use App\Filament\Resources\ResolucionAlcaldias\ResolucionAlcaldiaResource;
 use App\Filament\Resources\ConvocatoriaCAS\ConvocatoriaCASResource;
-use App\Filament\Resources\ResolucionGerencias\ResolucionGerenciaResource; // <-- CON 's' AQUÍ
-use App\Filament\Resources\Directivas\DirectivaResource; // <-- 1. IMPORTAR ARRIBA
+use App\Filament\Resources\ResolucionGerencias\ResolucionGerenciaResource;
+use App\Filament\Resources\Directivas\DirectivaResource;
+
+// Widget del Dashboard con todas las estadísticas
+use App\Filament\Widgets\ResumenGeneralOverview;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -36,10 +39,10 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-            // Limpia los accesos de soporte por defecto en v5
+            // Limpia los accesos de soporte por defecto
             ->userMenuItems([]) 
             
-            // REGISTRO MANUAL FORZADO PARA EVITAR ERRORES DE CARPETAS
+            // Registro manual de recursos
             ->resources([
                 ResolucionAlcaldiaResource::class,
                 ConvocatoriaCASResource::class,
@@ -54,9 +57,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class, // Mantiene la bienvenida de tu usuario
+                AccountWidget::class,           // Mantiene la bienvenida de tu usuario
+                ResumenGeneralOverview::class,  // Muestra todas las tarjetas y estadísticas de los 12 módulos
             ])
-
             
             ->middleware([
                 EncryptCookies::class,
