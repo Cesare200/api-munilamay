@@ -24,6 +24,9 @@ use App\Filament\Resources\ConvocatoriaCAS\ConvocatoriaCASResource;
 use App\Filament\Resources\ResolucionGerencias\ResolucionGerenciaResource;
 use App\Filament\Resources\Directivas\DirectivaResource;
 
+// Página de login personalizada
+use App\Filament\Pages\Auth\CustomLogin;
+
 // Widget del Dashboard con todas las estadísticas
 use App\Filament\Widgets\ResumenGeneralOverview;
 
@@ -35,10 +38,22 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            
+            // 1. Usar tu Login personalizado (solo uno aquí)
+            ->login(CustomLogin::class)
+
+            // 2. Identidad Institucional en Login y Panel
+            ->brandName('Municipalidad Distrital de Lamay')
+            ->brandLogo('https://munilamay.gob.pe/wp-content/uploads/2026/09/Escudo.png')
+            ->brandLogoHeight('4rem')
+            ->favicon('https://munilamay.gob.pe/wp-content/uploads/2026/09/Escudo.png')
+
+            // 3. Colores Institucionales
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#063B00'),
+                'warning' => Color::hex('#E1E100'),
             ])
+
             // Limpia los accesos de soporte por defecto
             ->userMenuItems([]) 
             
@@ -57,8 +72,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,           // Mantiene la bienvenida de tu usuario
-                ResumenGeneralOverview::class,  // Muestra todas las tarjetas y estadísticas de los 12 módulos
+                AccountWidget::class,
+                ResumenGeneralOverview::class,
             ])
             
             ->middleware([
@@ -74,6 +89,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ]); // <-- El punto y coma va solo aquí al final de la cadena
     }
 }
