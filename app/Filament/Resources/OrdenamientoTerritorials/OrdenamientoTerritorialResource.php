@@ -6,8 +6,9 @@ use App\Filament\Resources\OrdenamientoTerritorials\Pages;
 use App\Models\OrdenamientoTerritorial;
 use BackedEnum;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use UnitEnum;
@@ -21,11 +22,11 @@ class OrdenamientoTerritorialResource extends Resource
     protected static ?string $navigationLabel = 'Ordenamiento Territorial';
     protected static ?string $pluralModelLabel = 'Documentos de Ordenamiento Territorial';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make('Información del Documento / Mapa')
+        return $schema
+            ->components([
+                Components\Section::make('Información del Documento / Mapa')
                     ->schema([
                         Forms\Components\TextInput::make('titulo')
                             ->label('Título del Documento / Mapa')
