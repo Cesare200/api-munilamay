@@ -4,6 +4,7 @@ namespace App\Filament\Resources\OrdenamientoTerritorials;
 
 use App\Filament\Resources\OrdenamientoTerritorials\Pages;
 use App\Models\OrdenamientoTerritorial;
+use BackedEnum;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +16,7 @@ class OrdenamientoTerritorialResource extends Resource
 {
     protected static ?string $model = OrdenamientoTerritorial::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-map';
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-map';
     protected static UnitEnum|string|null $navigationGroup = 'Gestión Territorial';
     protected static ?string $navigationLabel = 'Ordenamiento Territorial';
     protected static ?string $pluralModelLabel = 'Documentos de Ordenamiento Territorial';
