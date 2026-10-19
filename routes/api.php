@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\ConvocatoriaCASController;
 use App\Http\Controllers\Api\DirectivaController; // <-- 1. IMPORTAR ARRIBA
 use App\Http\Controllers\Api\InteraccionMercadoController;
 use App\Http\Controllers\Api\InstitucionalSettingController;
+use App\Http\Controllers\Api\OrdenamientoTerritorialController;
 
 
 // GRUPO PRIVADO / PROTEGIDO (Solo para el administrador logueado)
@@ -55,4 +56,7 @@ Route::middleware('throttle:60,1')->group(function () {
 
     Route::get('/interaccion-mercado', [InteraccionMercadoController::class, 'index']);
     Route::get('/interaccion-mercado/{id}', [InteraccionMercadoController::class, 'show']);
+
+
+    Route::get('/ordenamiento-territorial', [OrdenamientoTerritorialController::class, 'index']);
 });
