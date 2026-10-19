@@ -4,11 +4,9 @@ namespace App\Filament\Resources\OrdenamientoTerritorials;
 
 use App\Filament\Resources\OrdenamientoTerritorials\Pages;
 use App\Models\OrdenamientoTerritorial;
-use BackedEnum;
-use UnitEnum;
 use Filament\Forms;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -16,54 +14,55 @@ class OrdenamientoTerritorialResource extends Resource
 {
     protected static ?string $model = OrdenamientoTerritorial::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-map';
-    protected static UnitEnum|string|null $navigationGroup = 'Gestión Territorial';
+    protected static ?string $navigationIcon = 'heroicon-o-map';
+    protected static ?string $navigationGroup = 'Gestión Territorial';
     protected static ?string $navigationLabel = 'Ordenamiento Territorial';
     protected static ?string $pluralModelLabel = 'Documentos de Ordenamiento Territorial';
 
-    public static function form(Schema $schema): Schema
+    public static function form(Form $form): Form
     {
-        return $schema
-            ->components([
-                Forms\Components\Section::make()->schema([
-                    Forms\Components\TextInput::make('titulo')
-                        ->label('Título del Documento / Mapa')
-                        ->required()
-                        ->placeholder('Ej: Tomo 1: Diagnóstico (2026 - 2036)'),
+        return $form
+            ->schema([
+                Forms\Components\Section::make('Información del Documento / Mapa')
+                    ->schema([
+                        Forms\Components\TextInput::make('titulo')
+                            ->label('Título del Documento / Mapa')
+                            ->required()
+                            ->placeholder('Ej: Tomo 1: Diagnóstico (2026 - 2036)'),
 
-                    Forms\Components\Select::make('categoria')
-                        ->label('Categoría / Tomo')
-                        ->options([
-                            'tomo_1_diagnostico' => 'Tomo 1: Diagnóstico (2026 - 2036)',
-                            'tomo_2_propuestas'  => 'Tomo 2: Propuestas Generales / Específicas / Gestión',
-                            'tomo_3_reglamento'  => 'Tomo 3: Reglamento',
-                            'mapa_diagnostico'   => 'Mapa de Diagnóstico',
-                            'mapa_propuesta'     => 'Mapa de Propuesta',
-                        ])
-                        ->required(),
+                        Forms\Components\Select::make('categoria')
+                            ->label('Categoría / Tomo')
+                            ->options([
+                                'tomo_1_diagnostico' => 'Tomo 1: Diagnóstico (2026 - 2036)',
+                                'tomo_2_propuestas'  => 'Tomo 2: Propuestas Generales / Específicas / Gestión',
+                                'tomo_3_reglamento'  => 'Tomo 3: Reglamento',
+                                'mapa_diagnostico'   => 'Mapa de Diagnóstico',
+                                'mapa_propuesta'     => 'Mapa de Propuesta',
+                            ])
+                            ->required(),
 
-                    Forms\Components\TextInput::make('subcategoria')
-                        ->label('Subcategoría (Opcional)')
-                        ->placeholder('Ej: Propuestas Específicas / Programa de Inversiones')
-                        ->maxLength(255),
+                        Forms\Components\TextInput::make('subcategoria')
+                            ->label('Subcategoría (Opcional)')
+                            ->placeholder('Ej: Propuestas Específicas / Programa de Inversiones')
+                            ->maxLength(255),
 
-                    Forms\Components\Textarea::make('descripcion')
-                        ->label('Descripción breve')
-                        ->rows(3),
+                        Forms\Components\Textarea::make('descripcion')
+                            ->label('Descripción breve')
+                            ->rows(3),
 
-                    Forms\Components\FileUpload::make('archivo_pdf')
-                        ->label('Archivo PDF')
-                        ->directory('ordenamiento-territorial')
-                        ->acceptedFileTypes(['application/pdf'])
-                        ->maxSize(20480) // 20 MB
-                        ->downloadable()
-                        ->openable()
-                        ->required(),
+                        Forms\Components\FileUpload::make('archivo_pdf')
+                            ->label('Archivo PDF')
+                            ->directory('ordenamiento-territorial')
+                            ->acceptedFileTypes(['application/pdf'])
+                            ->maxSize(20480) // 20 MB
+                            ->downloadable()
+                            ->openable()
+                            ->required(),
 
-                    Forms\Components\Toggle::make('estado')
-                        ->label('Publicado en la Web')
-                        ->default(true),
-                ])->columns(2),
+                        Forms\Components\Toggle::make('estado')
+                            ->label('Publicado en la Web')
+                            ->default(true),
+                    ])->columns(2),
             ]);
     }
 
