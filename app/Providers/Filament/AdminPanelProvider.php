@@ -23,6 +23,7 @@ use App\Filament\Resources\ResolucionAlcaldias\ResolucionAlcaldiaResource;
 use App\Filament\Resources\ConvocatoriaCAS\ConvocatoriaCASResource;
 use App\Filament\Resources\ResolucionGerencias\ResolucionGerenciaResource;
 use App\Filament\Resources\Directivas\DirectivaResource;
+use App\Filament\Resources\OrdenamientoTerritorials\OrdenamientoTerritorialResource; // <-- Nuevo Recurso Importado
 
 // Página de login personalizada
 use App\Filament\Pages\Auth\CustomLogin;
@@ -63,6 +64,7 @@ class AdminPanelProvider extends PanelProvider
                 ConvocatoriaCASResource::class,
                 ResolucionGerenciaResource::class,
                 DirectivaResource::class,
+                OrdenamientoTerritorialResource::class, // <-- Módulo agregado
             ])
             
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
