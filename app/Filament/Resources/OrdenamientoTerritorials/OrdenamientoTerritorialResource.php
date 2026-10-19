@@ -5,6 +5,8 @@ namespace App\Filament\Resources\OrdenamientoTerritorials;
 use App\Filament\Resources\OrdenamientoTerritorials\Pages;
 use App\Models\OrdenamientoTerritorial;
 use BackedEnum;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components;
@@ -109,8 +111,8 @@ class OrdenamientoTerritorialResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
             ]);
     }
 
