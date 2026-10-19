@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\OrdenamientoTerritorials\Pages;
 
 use App\Filament\Resources\OrdenamientoTerritorials\OrdenamientoTerritorialResource;
-use Filament\Actions\CreateAction;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListOrdenamientoTerritorials extends ListRecords
@@ -13,7 +13,7 @@ class ListOrdenamientoTerritorials extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            Actions\CreateAction::make(),
         ];
     }
 }

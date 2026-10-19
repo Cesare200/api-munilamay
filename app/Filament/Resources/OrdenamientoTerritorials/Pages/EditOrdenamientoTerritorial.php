@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\OrdenamientoTerritorials\Pages;
 
 use App\Filament\Resources\OrdenamientoTerritorials\OrdenamientoTerritorialResource;
-use Filament\Actions\DeleteAction;
+use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditOrdenamientoTerritorial extends EditRecord
@@ -13,7 +13,7 @@ class EditOrdenamientoTerritorial extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }
