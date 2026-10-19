@@ -9,13 +9,14 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class OrdenamientoTerritorialResource extends Resource
 {
     protected static ?string $model = OrdenamientoTerritorial::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
-    protected static ?string $navigationGroup = 'Gestión Territorial';
+    protected static UnitEnum|string|null $navigationGroup = 'Gestión Territorial';
     protected static ?string $navigationLabel = 'Ordenamiento Territorial';
     protected static ?string $pluralModelLabel = 'Documentos de Ordenamiento Territorial';
 
@@ -54,7 +55,7 @@ class OrdenamientoTerritorialResource extends Resource
                             ->label('Archivo PDF')
                             ->directory('ordenamiento-territorial')
                             ->acceptedFileTypes(['application/pdf'])
-                            ->maxSize(20480) // 20 MB
+                            ->maxSize(20480)
                             ->downloadable()
                             ->openable()
                             ->required(),
@@ -85,10 +86,6 @@ class OrdenamientoTerritorialResource extends Resource
                         'info'      => 'mapa_diagnostico',
                         'secondary' => 'mapa_propuesta',
                     ]),
-
-                Tables\Columns\TextColumn::make('subcategoria')
-                    ->label('Subcategoría')
-                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\IconColumn::make('estado')
                     ->label('Publicado')
