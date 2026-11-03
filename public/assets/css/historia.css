@@ -1,0 +1,148 @@
+.historia-page {
+  background-color: #f7faf2;
+  font-family: 'Poppins', sans-serif;
+}
+
+.muni-gestion-section {
+  padding: 36px 0 64px;
+  color: #222;
+  font-family: 'Poppins', sans-serif;
+}
+
+.gestion-container {
+  display: grid;
+  max-width: 1200px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 40px;
+  margin: 0 auto;
+}
+
+.gestion-card {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  padding: 30px;
+  border-top: 4px solid #063b00;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(6 59 0 / 8%);
+}
+
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+}
+
+.card-header > i {
+  color: #266210;
+  font-size: 24px;
+}
+
+.card-header h1,
+.card-header h2 {
+  margin: 0;
+  color: #063b00;
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.subtitle-galeria {
+  width: 100%;
+  margin-top: -5px;
+  color: #555;
+  font-size: 0.8125rem;
+}
+
+.historia-content {
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 5px;
+  color: #555;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.historia-content p {
+  margin: 0 0 15px;
+}
+
+.historia-content p:last-child {
+  margin-bottom: 0;
+}
+
+.historia-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.historia-content::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #90b800;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.galeria-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.galeria-item:hover img {
+  transform: scale(1.05);
+}
+
+.content-unavailable {
+  margin: 0;
+  padding: 20px;
+  color: #555;
+  font-style: italic;
+  text-align: center;
+}
+
+@media (max-width: 968px) {
+  .gestion-container {
+    grid-template-columns: 1fr;
+  }
+
+  .gestion-card {
+    height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .muni-gestion-section {
+    padding: 24px 0 44px;
+  }
+
+  .gestion-card {
+    padding: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galeria-item img {
+    transition: none;
+  }
+}

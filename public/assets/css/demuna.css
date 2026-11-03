@@ -1,0 +1,254 @@
+:root {
+    --demuna-primary: #2563eb;
+    --demuna-violet: #8b5cf6;
+    --demuna-pink: #ec4899;
+    --demuna-red: #f43f5e;
+    --demuna-orange: #f97316;
+    --demuna-green: #22c55e;
+    --demuna-surface: #ffffff;
+    --demuna-bg-soft: #f3f7ff;
+    --demuna-text: #374151;
+    --demuna-text-soft: #4b5563;
+    --demuna-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes demuna-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes demuna-fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes demuna-bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes demuna-gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.demuna-component {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background: var(--demuna-surface);
+    box-shadow: var(--demuna-shadow);
+    border-radius: 1rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: demuna-fadeInUp 0.6s ease-out forwards;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    color: var(--demuna-text);
+}
+
+.demuna-component * {
+    box-sizing: border-box;
+}
+
+.demuna-icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.demuna-icon-item {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    animation: demuna-bounceIn 0.6s ease-out both;
+}
+
+.demuna-icon-item:nth-child(1) { background: linear-gradient(135deg, #3b82f6, #8b5cf6); animation-delay: 0.1s; }
+.demuna-icon-item:nth-child(2) { background: linear-gradient(135deg, #8b5cf6, #d946ef); animation-delay: 0.2s; }
+.demuna-icon-item:nth-child(3) { background: linear-gradient(135deg, #d946ef, #ec4899); animation-delay: 0.3s; }
+.demuna-icon-item:nth-child(4) { background: linear-gradient(135deg, #ec4899, #f43f5e); animation-delay: 0.4s; }
+.demuna-icon-item:nth-child(5) { background: linear-gradient(135deg, #f43f5e, #f97316); animation-delay: 0.5s; }
+
+.demuna-icon-item svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+.demuna-header {
+    margin-bottom: 2rem;
+    animation: demuna-fadeIn 0.8s ease-out 0.3s both;
+}
+
+.demuna-main-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #f97316, #ef4444, #22c55e, #3b82f6, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 300% 300%;
+    animation: demuna-gradientShift 6s ease infinite;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.demuna-subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 1.5rem 0;
+}
+
+.demuna-description {
+    max-width: 48rem;
+    margin: 0 auto 2rem auto;
+    animation: demuna-fadeIn 0.8s ease-out 0.4s both;
+}
+
+.demuna-text {
+    font-size: 1.125rem;
+    color: var(--demuna-text-soft);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.demuna-contact-section {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    border-radius: 2rem;
+    padding: 2rem;
+    color: white;
+    display: grid;
+    gap: 1.5rem;
+    animation: demuna-fadeInUp 0.8s ease-out 0.5s both;
+}
+
+.demuna-contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.demuna-contact-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.demuna-contact-icon {
+    width: 3rem;
+    height: 3rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.demuna-contact-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+.demuna-contact-info {
+    text-align: left;
+    min-width: 0;
+}
+
+.demuna-contact-info > div:first-child {
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+}
+
+.demuna-contact-info > div:last-child {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+.demuna-icon-item:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 1024px) {
+    .demuna-component .demuna-main-title {
+        font-size: 4.5rem !important;
+        letter-spacing: 3px !important;
+    }
+
+    .demuna-component .demuna-subtitle {
+        font-size: 1.75rem !important;
+    }
+
+    .demuna-component .demuna-contact-section {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .demuna-component .demuna-main-title {
+        font-size: 3.5rem !important;
+        letter-spacing: 2px !important;
+    }
+
+    .demuna-component .demuna-subtitle {
+        font-size: 1.5rem !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .demuna-component {
+        padding: 1.5rem 0.8rem;
+    }
+
+    .demuna-component .demuna-main-title {
+        font-size: 2.75rem !important;
+        letter-spacing: 1px !important;
+    }
+
+    .demuna-component .demuna-subtitle {
+        font-size: 1.25rem !important;
+    }
+
+    .demuna-component .demuna-contact-section {
+        padding: 1.25rem;
+    }
+}

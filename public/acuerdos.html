@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return difDias >= 0 && difDias <= DIAS_NUEVO;
   }
 
-  fetch('http://localhost:8000/api/acuerdos-concejo')
+  fetch('/api/acuerdos-concejo')
     .then(res => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return res.json();

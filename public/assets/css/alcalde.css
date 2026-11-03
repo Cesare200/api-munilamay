@@ -1,0 +1,179 @@
+.alcalde-page {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f7faf2;
+  background-size: 28px 28px;
+}
+
+.alcalde-precise-container {
+  max-width: 1200px;
+  margin: 22px auto 64px;
+}
+
+.alcalde-precise-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-left: 5px solid #063b00;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(6 59 0 / 12%);
+}
+
+.precise-foto-frame {
+  position: relative;
+  width: 360px;
+  height: 390px;
+  flex: 0 0 360px;
+  overflow: hidden;
+  margin: 24px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #e9f0e4, #cbd9c1);
+  perspective: 900px;
+}
+
+.precise-avatar {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #266210;
+  font-size: 100px;
+}
+
+.precise-avatar[hidden] { display: none; }
+
+.precise-foto {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform .5s ease;
+}
+
+.precise-foto[hidden] { display: none; }
+.precise-foto-frame:hover .precise-foto { transform: scale(1.04); }
+
+.precise-photo-shine {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 30%));
+  animation: alcalde-photo-shine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.precise-content {
+  flex: 1;
+  padding: 38px 42px 38px 18px;
+}
+
+.precise-badge {
+  display: inline-block;
+  margin: 0 0 17px;
+  padding: 7px 18px;
+  border-left: 3px solid #90b800;
+  border-radius: 20px;
+  color: #fff;
+  background: #063b00;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.precise-title {
+  max-width: none;
+  margin: 0 0 10px;
+  color: #222;
+  font-size: clamp(1.8rem, 3.5vw, 2.45rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.precise-title span { display: block; }
+.precise-subtitle { margin: 0 0 20px; color: #266210; font-size: 1.1rem; font-weight: 600; }
+
+.precise-divider {
+  width: 100px;
+  height: 4px;
+  margin: 20px 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #063b00, #90b800);
+}
+
+.precise-text { margin: 0 0 26px; color: #555; font-size: .96rem; line-height: 1.8; }
+
+.precise-quote {
+  position: relative;
+  margin: 0;
+  padding-left: 32px;
+  color: #063b00;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.quote-mark { position: absolute; top: -15px; left: 0; color: #90b800; font-size: 3rem; line-height: 1; opacity: .75; }
+
+.concejo-container { max-width: 1400px; margin: 0 auto; padding: 0 0 26px; }
+.concejo-header { margin-bottom: 34px; text-align: center; }
+.section-eyebrow { margin: 0 0 7px; color: #628126; font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.concejo-header h2 { margin: 0 0 12px; color: #063b00; font-size: clamp(1.75rem, 3vw, 2.3rem); font-weight: 700; letter-spacing: .025em; text-transform: uppercase; }
+.decorative-line { width: 90px; height: 4px; margin: 0 auto; border-radius: 2px; background: linear-gradient(90deg, #063b00, #90b800); }
+
+.regidores-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; }
+.regidor-card { width: calc(20% - 18px); min-width: 205px; display: flex; flex-direction: column; overflow: hidden; border-bottom: 3px solid transparent; border-radius: 12px; background: #fff; box-shadow: 0 8px 20px rgb(6 59 0 / 8%); text-align: center; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.regidor-card:hover { transform: translateY(-5px); border-bottom-color: #90b800; box-shadow: 0 14px 28px rgb(6 59 0 / 14%); }
+.regidor-img-container { display: grid; min-height: 190px; place-items: center; padding: 22px 18px 10px; }
+.regidor-img-container img, .regidor-avatar-placeholder { width: 145px; height: 145px; border: 4px solid #f7faf2; border-radius: 50%; object-fit: cover; object-position: center top; box-shadow: 0 4px 12px rgb(0 0 0 / 8%); transition: transform .25s ease, border-color .25s ease; }
+.regidor-avatar-placeholder { display: grid; place-items: center; color: #266210; background: #f7faf2; font-size: 54px; }
+.regidor-card:hover .regidor-img-container img, .regidor-card:hover .regidor-avatar-placeholder { transform: scale(1.03); border-color: #90b800; }
+.regidor-info { flex: 1; padding: 17px 14px 20px; background: #f7faf2; }
+.regidor-info h3 { margin: 0 0 6px; color: #063b00; font-size: 1rem; font-weight: 600; line-height: 1.4; }
+.regidor-cargo { margin: 0; color: #266210; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.concejo-loading, .concejo-error, .concejo-empty { width: 100%; margin: 0; padding: 34px 20px; color: #555; text-align: center; }
+.concejo-error { border: 1px solid #e5c4bc; border-radius: 8px; color: #7a2f20; background: #fff8f5; }
+
+@keyframes alcalde-photo-shine {
+  0%, 35% { transform: translateX(-120%) skewX(-30deg); }
+  70%, 100% { transform: translateX(230%) skewX(-30deg); }
+}
+
+@media (max-width: 1100px) {
+  .regidor-card { width: calc(25% - 18px); }
+}
+
+@media (max-width: 950px) {
+  .alcalde-precise-card { flex-direction: column; }
+  .precise-foto-frame { width: min(360px, calc(100% - 40px)); height: 340px; flex-basis: 340px; margin: 24px auto 0; }
+  .precise-content { width: 100%; padding: 28px 30px 34px; }
+  .regidor-card { width: calc(33.333% - 16px); }
+}
+
+@media (max-width: 650px) {
+  .alcalde-precise-container { margin: 16px auto 44px; }
+  .precise-foto-frame { height: 290px; flex-basis: 290px; }
+  .precise-content { padding: 24px 20px 28px; }
+  .precise-title { font-size: 1.7rem; }
+  .precise-subtitle { font-size: 1rem; }
+  .regidor-card { width: calc(50% - 10px); min-width: 145px; }
+  .regidor-img-container { min-height: 150px; padding: 18px 10px 8px; }
+  .regidor-img-container img, .regidor-avatar-placeholder { width: 112px; height: 112px; }
+  .regidor-avatar-placeholder { font-size: 42px; }
+}
+
+@media (max-width: 400px) {
+  .regidores-grid { gap: 12px; }
+  .regidor-card { width: 100%; max-width: 280px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .precise-photo-shine { animation: none; }
+  .precise-foto, .regidor-card, .regidor-img-container img, .regidor-avatar-placeholder { transition: none; }
+}

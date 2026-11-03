@@ -1,0 +1,234 @@
+.directivas-page {
+  background: #f7faf2;
+  font-family: 'Poppins', sans-serif;
+}
+
+.directivas-municipales {
+  --directivas-primary: #063b00;
+  --directivas-primary-light: #266210;
+  --directivas-secondary: #90b800;
+  --directivas-light: #f7faf2;
+  --directivas-dark: #222;
+  --directivas-gray: #555;
+  --directivas-border: #eee;
+  --directivas-shadow-sm: 0 2px 8px rgb(6 59 0 / 6%);
+  --directivas-shadow-md: 0 8px 24px rgb(6 59 0 / 10%);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 950px;
+  margin: 2rem auto 4rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--directivas-shadow-md);
+  color: var(--directivas-dark);
+  font-family: 'Poppins', sans-serif;
+}
+
+.directivas-municipales *,
+.directivas-municipales *::before,
+.directivas-municipales *::after {
+  box-sizing: inherit;
+}
+
+.directivas-header {
+  margin-bottom: 1.875rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--directivas-border);
+  text-align: center;
+}
+
+.directivas-header h1 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 0 0.625rem;
+  color: var(--directivas-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.directivas-header h1 i,
+.directiva-icon {
+  color: var(--directivas-primary-light);
+}
+
+.directivas-subtitle {
+  margin: 0;
+  color: var(--directivas-gray);
+  font-size: 0.9375rem;
+}
+
+.directiva-card {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding: 1.5rem;
+  border-left: 5px solid var(--directivas-primary);
+  border-radius: 10px;
+  background: var(--directivas-light);
+  box-shadow: var(--directivas-shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.directiva-card:hover {
+  transform: translateY(-4px);
+  border-left-color: var(--directivas-secondary);
+  background: #fff;
+  box-shadow: var(--directivas-shadow-md);
+}
+
+.directiva-icon {
+  display: flex;
+  min-width: 50px;
+  align-items: flex-start;
+  padding-top: 4px;
+  font-size: 2.375rem;
+  transition: transform 0.3s ease;
+}
+
+.directiva-card:hover .directiva-icon {
+  transform: scale(1.08);
+  color: var(--directivas-primary);
+}
+
+.directiva-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.directiva-title {
+  margin: 0 0 0.5rem;
+  color: var(--directivas-primary);
+  font-size: 1.1875rem;
+  font-weight: 700;
+}
+
+.directiva-description {
+  margin: 0 0 1rem;
+  color: var(--directivas-gray);
+  font-size: 0.90625rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.directiva-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.directivas-municipales .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--directivas-gray);
+  font-size: 0.84375rem;
+  font-weight: 500;
+}
+
+.directivas-municipales .meta-item > i {
+  color: var(--directivas-primary-light);
+  font-size: 0.9375rem;
+}
+
+.directivas-municipales .download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.5rem 1.125rem;
+  border-radius: 6px;
+  background: var(--directivas-primary);
+  color: #fff;
+  font-size: 0.84375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.directivas-municipales .download-link:hover {
+  transform: translateY(-1px);
+  background: var(--directivas-primary-light);
+  box-shadow: 0 4px 10px rgb(6 59 0 / 20%);
+  color: var(--directivas-secondary);
+}
+
+.directivas-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.875rem;
+  padding-top: 1.125rem;
+  border-top: 1px dashed var(--directivas-border);
+  color: var(--directivas-gray);
+  font-size: 0.84375rem;
+  font-weight: 500;
+}
+
+.directivas-footer i {
+  color: var(--directivas-primary);
+}
+
+.directivas-loading,
+.directivas-empty,
+.directivas-error {
+  margin: 0;
+  padding: 1.875rem 0;
+  color: var(--directivas-gray);
+  text-align: center;
+}
+
+.directivas-loading {
+  font-style: italic;
+}
+
+.directivas-error {
+  color: #c0392b;
+}
+
+.directivas-loading i,
+.directivas-empty i,
+.directivas-error i {
+  margin-right: 0.4rem;
+}
+
+.directivas-municipales a:focus-visible {
+  outline: 3px solid rgb(144 184 0 / 55%);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .directivas-municipales {
+    margin: 1rem auto 3rem;
+    padding: 1.25rem 0.9375rem;
+  }
+
+  .directivas-header h1 {
+    font-size: 1.375rem;
+  }
+
+  .directiva-card {
+    flex-direction: column;
+    gap: 0.9375rem;
+    padding: 1.125rem;
+  }
+
+  .directiva-icon {
+    min-width: auto;
+  }
+
+  .directiva-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .directivas-municipales .download-link {
+    width: 100%;
+    justify-content: center;
+  }
+}

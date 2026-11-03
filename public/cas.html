@@ -529,7 +529,7 @@ async function init() {
 
   var res, data;
   try {
-    res = await fetchConTimeout('http://localhost:8000/api/convocatorias-cas', 12000);
+    res = await fetchConTimeout('/api/convocatorias-cas', 12000);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     data = await res.json();
   } catch (err) {

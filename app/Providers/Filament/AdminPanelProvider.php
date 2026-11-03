@@ -2,6 +2,13 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\CustomLogin;
+use App\Filament\Resources\ConvocatoriaCAS\ConvocatoriaCASResource;
+use App\Filament\Resources\Directivas\DirectivaResource;
+use App\Filament\Resources\OrdenamientoTerritorials\OrdenamientoTerritorialResource;
+use App\Filament\Resources\ResolucionAlcaldias\ResolucionAlcaldiaResource;
+use App\Filament\Resources\ResolucionGerencias\ResolucionGerenciaResource;
+use App\Filament\Widgets\ResumenGeneralOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -10,26 +17,16 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+// Recursos manuales registrados
 use Filament\Widgets\AccountWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-
-// Recursos manuales registrados
-use App\Filament\Resources\ResolucionAlcaldias\ResolucionAlcaldiaResource;
-use App\Filament\Resources\ConvocatoriaCAS\ConvocatoriaCASResource;
-use App\Filament\Resources\ResolucionGerencias\ResolucionGerenciaResource;
-use App\Filament\Resources\Directivas\DirectivaResource;
-use App\Filament\Resources\OrdenamientoTerritorials\OrdenamientoTerritorialResource; // <-- Nuevo Recurso Importado
-
+use Illuminate\Routing\Middleware\SubstituteBindings; // <-- Nuevo Recurso Importado
 // Página de login personalizada
-use App\Filament\Pages\Auth\CustomLogin;
-
+use Illuminate\Session\Middleware\StartSession;
 // Widget del Dashboard con todas las estadísticas
-use App\Filament\Widgets\ResumenGeneralOverview;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -39,15 +36,15 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            
+
             // 1. Usar tu Login personalizado (solo uno aquí)
             ->login(CustomLogin::class)
 
             // 2. Identidad Institucional en Login y Panel
             ->brandName('Municipalidad Distrital de Lamay')
-            ->brandLogo('https://munilamay.gob.pe/wp-content/uploads/2026/09/Escudo.png')
+            ->brandLogo(asset('assets/images/lamay-logo.png'))
             ->brandLogoHeight('4rem')
-            ->favicon('https://munilamay.gob.pe/wp-content/uploads/2026/09/Escudo.png')
+            ->favicon(asset('assets/images/lamay-logo.png'))
 
             // 3. Colores Institucionales
             ->colors([
@@ -56,8 +53,8 @@ class AdminPanelProvider extends PanelProvider
             ])
 
             // Limpia los accesos de soporte por defecto
-            ->userMenuItems([]) 
-            
+            ->userMenuItems([])
+
             // Registro manual de recursos
             ->resources([
                 ResolucionAlcaldiaResource::class,
@@ -66,7 +63,7 @@ class AdminPanelProvider extends PanelProvider
                 DirectivaResource::class,
                 OrdenamientoTerritorialResource::class, // <-- Módulo agregado
             ])
-            
+
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -77,7 +74,7 @@ class AdminPanelProvider extends PanelProvider
                 AccountWidget::class,
                 ResumenGeneralOverview::class,
             ])
-            
+
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
