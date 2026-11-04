@@ -9,6 +9,7 @@ use App\Filament\Resources\OrdenamientoTerritorials\OrdenamientoTerritorialResou
 use App\Filament\Resources\ResolucionAlcaldias\ResolucionAlcaldiaResource;
 use App\Filament\Resources\ResolucionGerencias\ResolucionGerenciaResource;
 use App\Filament\Widgets\ResumenGeneralOverview;
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -52,8 +53,10 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::hex('#E1E100'),
             ])
 
-            // Limpia los accesos de soporte por defecto
-            ->userMenuItems([])
+            ->userMenuItems([
+                'profile' => fn (Action $action): Action => $action->label('Mi cuenta'),
+            ])
+            ->profile(isSimple: false)
 
             // Registro manual de recursos
             ->resources([
