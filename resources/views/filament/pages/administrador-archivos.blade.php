@@ -131,24 +131,30 @@
     <div class="fe"
          x-data="{
             up: false, pct: 0, err: '', name: '',
-            qrOpen: false, qrUrl: '', qrFileName: '', copied: false,
+            qrOpen: false, qrUrl: '', qrFileName: '', qrError: '', copied: false,
             showQr(url, name) {
-                this.qrUrl = url;
+                this.qrUrl = new URL(url, window.location.origin).href;
                 this.qrFileName = name;
                 this.qrOpen = true;
                 this.copied = false;
+                this.qrError = '';
                 this.$nextTick(() => {
                     const c = document.getElementById('fe-qr-target');
                     if (c) {
                         c.innerHTML = '';
-                        new QRCode(c, {
-                            text: url,
-                            width: 190,
-                            height: 190,
-                            colorDark: '#1e293b',
-                            colorLight: '#ffffff',
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
+                        try {
+                            new QRCode(c, {
+                                text: this.qrUrl,
+                                width: 256,
+                                height: 256,
+                                colorDark: '#1e293b',
+                                colorLight: '#ffffff',
+                                correctLevel: QRCode.CorrectLevel.L
+                            });
+                        } catch (error) {
+                            console.error('No se pudo generar el código QR:', error);
+                            this.qrError = 'El enlace es demasiado largo para generar un código QR.';
+                        }
                     }
                 });
             },
@@ -461,8 +467,9 @@
 
                 {{-- Contenedor del código QR renderizado con fondo blanco para escaneo perfecto --}}
                 <div style="display: flex; justify-content: center; padding: 12px; background: #ffffff; border-radius: 8px; border: 1px solid var(--fe-bd); width: fit-content; margin: 0 auto 14px auto;">
-                    <div id="fe-qr-target" style="width: 190px; height: 190px; display: flex; align-items: center; justify-content: center;"></div>
+                    <div id="fe-qr-target" style="width: 256px; height: 256px; display: flex; align-items: center; justify-content: center;"></div>
                 </div>
+                <p x-show="qrError" x-text="qrError" role="alert" style="margin: -6px 0 12px; color: #b91c1c; font-size: 12px;"></p>
 
                 {{-- Campo con la URL directa y botón copiar --}}
                 <div style="display: flex; gap: 6px; margin-bottom: 12px;">
